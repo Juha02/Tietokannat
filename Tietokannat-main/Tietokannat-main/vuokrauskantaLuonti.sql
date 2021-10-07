@@ -10,7 +10,7 @@ CREATE TABLE tuote (
                 tuoteryhma VARCHAR(20) NOT NULL,
                 nimike VARCHAR(40) NOT NULL,
                 merkki VARCHAR(20) NOT NULL,
-                malli VARCHAR(20) NOT NULL,
+                Malli VARCHAR(20) NOT NULL,
                 paivavuokra FLOAT NOT NULL,
                 CONSTRAINT tuote_pk PRIMARY KEY (yksilointikoodi)
 );
@@ -20,7 +20,7 @@ CREATE TABLE yhteystyyppi (
                 yhteystyyppi VARCHAR(20) NOT NULL,
                 CONSTRAINT yhteystyyppi_pk PRIMARY KEY (yhteystyyppi)
 );
-COMMENT ON COLUMN yhteystyyppi.yhteystyyppi IS 'Taulu on luotu vain käyttöliittymää varten. Se estää käyttäjää syöttämästä yhteyshenkilö-tauluun muita kuin ennalta määrättyjä arvoja.';
+COMMENT ON COLUMN yhteystyyppi.yhteystyyppi IS 'Taulu on luotu vain käyttöliittymää varten. Se estää käyttäjää syöttämästä Yhteyshenkilö-tauluun muita kuin ennalta määrättyjä arvoja.';
 
 
 CREATE TABLE asiakas (
@@ -31,33 +31,32 @@ CREATE TABLE asiakas (
                 postitoimipaikka VARCHAR(30) NOT NULL,
                 CONSTRAINT asiakas_pk PRIMARY KEY (asiakasnumero)
 );
-COMMENT ON TABLE asiakas IS 'Asiakkaan perustiedot';
-COMMENT ON COLUMN asiakas.laskutusosoite IS 'Yrityksen laskujen katu- tai PL-osoite';
+COMMENT ON COLUMN asiakas.laskutusosoite IS 'Yrityksen laskujan katu- tai PL-osoite';
 
 
 CREATE TABLE vuokraus (
                 tapahtumaid INTEGER NOT NULL,
                 asiakasnumero INTEGER NOT NULL,
+                yksilointikoodi INTEGER NOT NULL,
                 alkamispaiva DATE NOT NULL,
                 paattymispaiva DATE NOT NULL,
-                yksilointikoodi INTEGER NOT NULL,
                 CONSTRAINT vuokraus_pk PRIMARY KEY (tapahtumaid)
 );
-COMMENT ON COLUMN vuokraus.tapahtumaid IS 'Dummy id tulevia käyttötarkoituksia varten.';
+COMMENT ON COLUMN vuokraus.tapahtumaid IS 'Dummy id tulevia käyttötarkoituksia varten';
 
 
 CREATE TABLE yhteyshenkilo (
-                yhteyshenkilo_ID INTEGER NOT NULL,
+                yhteyshenkilo_id INTEGER NOT NULL,
                 yhteystyyppi VARCHAR(20) NOT NULL,
                 etunimi VARCHAR(20) NOT NULL,
                 sukunimi VARCHAR(30) NOT NULL,
                 puhelin VARCHAR(15),
                 sahkoposti VARCHAR(40) NOT NULL,
                 asiakasnumero INTEGER NOT NULL,
-                CONSTRAINT New_table_pk PRIMARY KEY (yhteyshenkilo_ID)
+                CONSTRAINT yhteyshenkilo_pk PRIMARY KEY (yhteyshenkilo_id)
 );
-COMMENT ON COLUMN yhteyshenkilo.yhteyshenkilo_ID IS 'Dummy perusavain. Tulevaisuuden tarpeita varten';
-COMMENT ON COLUMN yhteyshenkilo.yhteystyyppi IS 'Taulu on luotu vain käyttöliittymää varten. Se estää käyttäjää syöttämästä yhteyshenkilö-tauluun muita kuin ennalta määrättyjä arvoja.';
+COMMENT ON COLUMN yhteyshenkilo.yhteyshenkilo_id IS 'Dummy perusavain. Tulevaisuuden tarpeita varten';
+COMMENT ON COLUMN yhteyshenkilo.yhteystyyppi IS 'Taulu on luotu vain käyttöliittymää varten. Se estää käyttäjää syöttämästä Yhteyshenkilö-tauluun muita kuin ennalta määrättyjä arvoja.';
 
 
 ALTER TABLE tuote ADD CONSTRAINT tuoteryhma_tuote_fk
